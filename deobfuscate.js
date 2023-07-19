@@ -81,7 +81,6 @@ function deob(data) {
         sandbox: {
             'String': String,
             'decodeURI': decodeURI,
-            'console': console
         }
     });
 
