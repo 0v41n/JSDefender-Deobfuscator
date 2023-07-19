@@ -1,0 +1,29 @@
+{
+  "name": "jsdefender-deobfuscator",
+  "version": "1.0.0",
+  "description": "a simple JSDefender deobfuscator that I made with love ❤️",
+  "main": "deobfuscate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yvainix/JSDefender-Deobfuscator.git"
+  },
+  "keywords": [
+    "deobfuscator"
+  ],
+  "author": "Yvain Ramora",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yvainix/JSDefender-Deobfuscator/issues"
+  },
+  "homepage": "https://github.com/Yvainix/JSDefender-Deobfuscator#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "js-beautify": "^1.14.8",
+    "minimist": "^1.2.8",
+    "process": "^0.11.10",
+    "vm2": "^3.9.19"
+  }
+}
