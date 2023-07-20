@@ -70,7 +70,7 @@ if (argv.i && argv.o) {
         console.log("\x1b[31mError: You must provide a valid input file.\x1b[0m");
     }
 } else {
-    console.log("\x1b[31mError: You need to provide an input file and an output file!\x1b[0m\n\x1b[33mexample: node deobfuscator.js --i input.js --o output.js\x1b[0m");
+    console.log("\x1b[31mError: You need to provide an input file and an output file!\n\x1b[33mexample: node deobfuscator.js --i input.js --o output.js\x1b[0m");
 }
 
 /** returns the unobfuscated code */
@@ -99,6 +99,9 @@ function deob(data) {
             var key = vm.run('var mainFunction = \"' + mainFunction[0].replace(/"/g, '\\"') + '\";' + hashFunction[0].replace(/const/g, 'var') + ';' + hashFunction[0].match(/[0-9A-Z]+/gi)[1] + '(mainFunction);');
             var core = vm.run(decryptFunction[0].replace(/const/g, 'var') + ';' + decryptFunction[0].match(/[0-9A-Z]+/gi)[1] + '(' + evalContent.replace('(' + mainFunction[0] + ')(', '').slice(0, -1) + ',"' + key + '")');
 
+            /* displays console information */
+            console.log("key = \x1b[32m\"" + key + "\"\x1b[0m");
+
             /* deleting unnecessary data */
             var nData = data.match(/}\(\);[\W\D\S]+/i);
             if (nData) {
@@ -119,7 +122,9 @@ function deob(data) {
 
             /* replacing obfuscated values */
             vm.sandbox.obfValues.forEach(value => {
-                data = data.replace(new RegExp(value.replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/\(/g, '\\(').replace(/\)/g, '\\)'), 'g'), typeof vm.sandbox.deobValues['' + value] == 'string' ? '"' + vm.sandbox.deobValues['' + value] + '"' : vm.sandbox.deobValues['' + value]);
+                var newValue = typeof vm.sandbox.deobValues['' + value] == 'string' ? '"' + vm.sandbox.deobValues['' + value] + '"' : vm.sandbox.deobValues['' + value];
+                data = data.replace(new RegExp(value.replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/\(/g, '\\(').replace(/\)/g, '\\)'), 'g'), newValue);
+                console.log(value + " = \x1b[" + (typeof newValue == 'string' ? '32m' : '33m') + newValue + '\x1b[0m');
             });
 
             /* solves the calculations */
@@ -130,6 +135,7 @@ function deob(data) {
                         var result = vm.run(calc);
                         if (typeof result == 'number') {
                             data = data.replace(calc, result);
+                            console.log(calc + " = \x1b[33m" + result + "\x1b[0m");
                         }
                     } catch {}
                 });
