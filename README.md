@@ -28,7 +28,7 @@ This project is designed to facilitate malware analysis and reverse engineering.
 </p>
 
 ## Installation
-* Clone the project: `git clone https://github.com/Yvainix/JSDefender-Deobfuscator.git`
+* Clone the project: `git clone https://github.com/0v41n/JSDefender-Deobfuscator.git`
 * Go to the project directory: `cd JSDefender-Deobfuscator`
 * Installing dependencies : `npm install`
 
