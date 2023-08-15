@@ -25,7 +25,7 @@ MIT License
 /* importing modules */
 const argv = require("minimist")(process.argv.slice(2));
 const bf = require("js-beautify");
-const { VM } = require('vm2');
+const { VM } = require("vm2");
 const fs = require("fs");
 
 /* js-beautify parameters */
@@ -52,16 +52,18 @@ if (argv.i && argv.o) {
     if (fs.existsSync(argv.i)) {
         fs.readFile(argv.i, "utf8", (err, data) => {
             if (!err) {
+                
+               /* calls the deob function */
                 var unobfuscated = deob(data);
-                if (unobfuscated) {
-                    fs.writeFile(argv.o, unobfuscated, (err) => {
-                        if (!err) {
-                            console.log("\x1b[32mThe input file has been successfully deobfuscated!\x1b[0m");
-                        } else {
-                            console.log("\x1b[31mError: An error has occurred while writing the output file.\x1b[0m");
-                        }
-                    })
-                }
+                  
+                /* write the unobfuscated code to the output file */
+                fs.writeFile(argv.o, unobfuscated, (err) => {
+                    if (!err) {
+                        console.log("\x1b[32mThe input file has been successfully deobfuscated!\x1b[0m");
+                    } else {
+                        console.log("\x1b[31mError: An error has occurred while writing the output file.\x1b[0m");
+                    }
+                })
             } else {
                 console.log("\x1b[31mError: An error has occurred while reading the input file.\x1b[0m");
             }
@@ -73,7 +75,7 @@ if (argv.i && argv.o) {
     console.log("\x1b[31mError: You need to provide an input file and an output file!\n\x1b[33mexample: node deobfuscator.js --i input.js --o output.js\x1b[0m");
 }
 
-/** returns the unobfuscated code */
+/* returns the unobfuscated code */
 function deob(data) {
 
     /* launches the vm */
