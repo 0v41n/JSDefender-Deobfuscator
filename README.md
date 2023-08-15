@@ -33,7 +33,7 @@ This project is designed to facilitate malware analysis and reverse engineering.
 * Installing dependencies : `npm install`
 
 ## Usage
-* Run the project : `node deobfuscate.js -i input_file.js -o output_file.js`
+* Run the project : `node deobfuscator.js -i input_file.js -o output_file.js`
 
 ## Contribute
 Contributions are welcome! Follow these steps to contribute to this project:
