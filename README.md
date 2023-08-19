@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-v1.0-blue.svg" alt="Version">
-  <img src="https://img.shields.io/github/license/Yvainix/JSDefender-Deobfuscator.svg" alt="License">
+  <img src="https://img.shields.io/github/license/0v41n/JSDefender-Deobfuscator.svg" alt="License">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
 </p>
 
