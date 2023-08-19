@@ -72,7 +72,7 @@ if (argv.i && argv.o) {
         console.log("\x1b[31mError: You must provide a valid input file.\x1b[0m");
     }
 } else {
-    console.log("\x1b[31mError: You need to provide an input file and an output file!\n\x1b[33mexample: node deobfuscator.js --i input.js --o output.js\x1b[0m");
+    console.log("\x1b[31mError: You need to provide an input file and an output file!\n\x1b[33mexample: node deobfuscator.js -i input.js -o output.js\x1b[0m");
 }
 
 /* returns the unobfuscated code */
