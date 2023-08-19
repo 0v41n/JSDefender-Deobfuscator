@@ -2,7 +2,7 @@
   "name": "jsdefender-deobfuscator",
   "version": "1.0.0",
   "description": "a simple JSDefender deobfuscator that I made with love ❤️",
-  "main": "deobfuscate.js",
+  "main": "deobfuscator.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
