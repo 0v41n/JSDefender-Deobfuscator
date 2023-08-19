@@ -1,4 +1,5 @@
 <h1 align="center">JSDefender Deobfuscator</h1>
+<h2 align="center">TO BE USED ONLY ON A VIRTUAL MACHINE</h2>
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-v1.0-blue.svg" alt="Version">
