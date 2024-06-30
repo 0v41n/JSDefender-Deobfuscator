@@ -1,7 +1,7 @@
 /*
 MIT License 
   
- Copyright (c) 2023 Yvain Ramora
+ Copyright (c) 2023-2024 Yvain Ramora
   
  Permission is hereby granted, free of charge, to any person obtaining a copy 
  of this software and associated documentation files (the "Software"), to deal 
@@ -24,6 +24,7 @@ MIT License
 
 /* importing modules */
 const argv = require("minimist")(process.argv.slice(2));
+const babel = require('@babel/core');
 const bf = require("js-beautify");
 const { VM } = require("vm2");
 const fs = require("fs");
@@ -52,17 +53,17 @@ if (argv.i && argv.o) {
     if (fs.existsSync(argv.i)) {
         fs.readFile(argv.i, "utf8", (err, data) => {
             if (!err) {
-                
-               /* calls the deob function */
-                var unobfuscated = deob(data);
-                  
-                /* write the unobfuscated code to the output file */
-                fs.writeFile(argv.o, unobfuscated, (err) => {
-                    if (!err) {
-                        console.log("\x1b[32mThe input file has been successfully deobfuscated!\x1b[0m");
-                    } else {
-                        console.log("\x1b[31mError: An error has occurred while writing the output file.\x1b[0m");
-                    }
+
+                /* calls the deob function */
+                deob(data).then(unobfuscated => {
+                    /* write the unobfuscated code to the output file */
+                    fs.writeFile(argv.o, unobfuscated, (err) => {
+                        if (!err) {
+                            console.log("\x1b[32mThe input file has been successfully deobfuscated!\x1b[0m");
+                        } else {
+                            console.log("\x1b[31mError: An error has occurred while writing the output file.\x1b[0m");
+                        }
+                    })
                 })
             } else {
                 console.log("\x1b[31mError: An error has occurred while reading the input file.\x1b[0m");
@@ -76,7 +77,7 @@ if (argv.i && argv.o) {
 }
 
 /* returns the unobfuscated code */
-function deob(data) {
+async function deob(data) {
 
     /* launches the vm */
     const vm = new VM({
@@ -124,7 +125,7 @@ function deob(data) {
 
             /* replacing obfuscated values */
             vm.sandbox.obfValues.forEach(value => {
-                var newValue = typeof vm.sandbox.deobValues['' + value] == 'string' ? '"' + vm.sandbox.deobValues['' + value] + '"' : vm.sandbox.deobValues['' + value];
+                var newValue = typeof vm.sandbox.deobValues['' + value] == 'string' ? '"' + vm.sandbox.deobValues['' + value].replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"' : vm.sandbox.deobValues['' + value];
                 data = data.replace(new RegExp(value.replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/\(/g, '\\(').replace(/\)/g, '\\)'), 'g'), newValue);
                 console.log(value + " = \x1b[" + (typeof newValue == 'string' ? '32m' : '33m') + newValue + '\x1b[0m');
             });
@@ -144,35 +145,27 @@ function deob(data) {
             }
 
             /* renames variables */
-            var varNames = [...new Set(data.match(/[\u15E0-\u1770]{4}|[\u2AF8-\u2E18]{4}/g))];
+            var varNames = [...new Set(data.match(/[\u15E0-\u1770\u2AF8-\u2E18]{3,6}/g))];
             if (varNames) {
                 varNames.forEach(varName => {
                     var newName = "";
-                    for (let i = 0; i < 4; i++) newName += String.fromCharCode(Math.floor(Math.random() * 26) + [0x41, 0x61][Math.floor(Math.random() * 2)]);
+                    for (let i = 0; i < varName.length; i++) newName += String.fromCharCode(Math.floor(Math.random() * 26) + [0x41, 0x61][Math.floor(Math.random() * 2)]);
                     data = data.replace(new RegExp(varName, 'g'), newName);
                 })
             }
 
             /* better visibility of the algorithm */
-            for (let skip = -1; skip < 0;) {
-                var uncleans = data.match(/[0-9A-Z]+\["[0-9A-Z]+"\]/gi);
-                if (uncleans) {
-                    uncleans.forEach(unclean => {
-                        data = data.replace(unclean, unclean.match(/[0-9A-Z]+/gi)[0] + '.' + unclean.match(/[0-9A-Z]+/gi)[1]);
-                    });
-                } else {
-                    skip = 1;
-                }
-            }
-            var uncleanJsons = data.match(/\[\"[0-9A-Z]+\"\]\:/gi)
-            if (uncleanJsons) {
-                uncleanJsons.forEach(uncleanJson => {
-                    data = data.replace(uncleanJson, uncleanJson.match(/\"[0-9A-Z]+\"/i) + ':');
-                });
-            }
+            try {
+                const result = await babel.transformAsync(data, {
+                    presets: ['@babel/preset-env'],
+                    plugins: ['transform-member-expression-literals']
+                })
 
-            /* returns the unobfuscated code */
-            return bf(data, bfConfig);
+                /* returns the unobfuscated code */
+                return bf(result.code, bfConfig);
+            } catch (err) {
+                console.error('Error transforming code:', err);
+            }
         } else {
             console.log("\x1b[31mError: An error has occurred in the structure of the code. If you are sure that your algorithm is correctly structured, please open an issue\x1b[0m");
             return bf(data, bfConfig);

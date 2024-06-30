@@ -1,6 +1,6 @@
 {
   "name": "jsdefender-deobfuscator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a simple JSDefender deobfuscator that I made with love ❤️",
   "main": "deobfuscator.js",
   "scripts": {
@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/Yvainix/JSDefender-Deobfuscator#readme",
   "dependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "babel-plugin-transform-member-expression-literals": "^6.9.4",
     "fs": "^0.0.1-security",
     "js-beautify": "^1.14.8",
     "minimist": "^1.2.8",
