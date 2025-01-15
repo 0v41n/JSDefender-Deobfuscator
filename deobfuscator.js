@@ -43,7 +43,7 @@ Usage:
 
 
 Example:
-    node ${process.argv[1].split('\\').at(-1)} -i input.js -o output.js -v -c
+    node ${process.argv[1].split('\\').at(-1)} -i input.js -o output.js -v
     node ${process.argv[1].split('\\').at(-1)} -i input.js -r
 `;
 
