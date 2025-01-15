@@ -350,17 +350,17 @@ function deobfuscate(code, obfuscatedLetName, mainCode, obfuscatedEvals) {
                 
                 Object.entries(deobfuscatedEvals).forEach(([value, newValue]) => {
                     updatedCode = updatedCode.replaceAll(value, newValue);
-                    argv.v && console.log(argv.colors ? highlight(newValue, { language: 'javascript', theme: theme}) : newValue);
+                    argv.v && console.log(argv.colors != false ? highlight(newValue, { language: 'javascript', theme: theme}) : newValue);
                 });
 
                 Object.entries(deobfuscatedValues).forEach(([value, newValue]) => {
                     updatedCode = updatedCode.replaceAll(value, newValue);
-                    argv.v && console.log(argv.colors ? value + ' = \x1b[' + (typeof newValue == 'string' ? '32m' : '33m') + newValue + '\x1b[0m' : value + ' = ' + newValue);
+                    argv.v && console.log(argv.colors != false ? value + ' = \x1b[' + (typeof newValue == 'string' ? '32m' : '33m') + newValue + '\x1b[0m' : value + ' = ' + newValue);
                 });
 
                 Object.entries(deobfuscatedExpressions).forEach(([value, newValue]) => {
                     updatedCode = updatedCode.replaceAll(value, newValue);
-                    argv.v && console.log(argv.colors ? value + ' = \x1b[33m' + newValue + '\x1b[0m' : value + ' = ' + newValue);
+                    argv.v && console.log(argv.colors != false ? value + ' = \x1b[33m' + newValue + '\x1b[0m' : value + ' = ' + newValue);
                 });
                 
                 console.log('code cleaning...');
@@ -381,7 +381,7 @@ function deobfuscate(code, obfuscatedLetName, mainCode, obfuscatedEvals) {
                 } else {
 
                     /* displays the deobfuscated code in the console */
-                    console.log(argv.colors ? highlight(updatedCode, { language: 'javascript', theme: theme}) : updatedCode);
+                    console.log(argv.colors != false ? highlight(updatedCode, { language: 'javascript', theme: theme}) : updatedCode);
                 }
             }
         });
