@@ -1,7 +1,7 @@
 {
   "name": "jsdefender-deobfuscator",
-  "version": "1.0.1",
-  "description": "a simple JSDefender deobfuscator that I made with love ❤️",
+  "version": "2.0.0",
+  "description": "A tool for deobfuscating JavaScript code protected by JSDefender to make it easier to analyse",
   "main": "deobfuscator.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,15 @@
     "url": "git+https://github.com/Yvainix/JSDefender-Deobfuscator.git"
   },
   "keywords": [
-    "deobfuscator"
+    "javascript",
+    "nodejs",
+    "deobfuscation",
+    "obfuscation",
+    "reverse-engineering",
+    "code-analysis",
+    "security",
+    "debugging",
+    "tool"
   ],
   "author": "Yvain Ramora",
   "license": "MIT",
@@ -20,13 +28,10 @@
   },
   "homepage": "https://github.com/Yvainix/JSDefender-Deobfuscator#readme",
   "dependencies": {
-    "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "babel-plugin-transform-member-expression-literals": "^6.9.4",
-    "fs": "^0.0.1-security",
-    "js-beautify": "^1.14.8",
-    "minimist": "^1.2.8",
-    "process": "^0.11.10",
-    "vm2": "^3.9.19"
+    "cli-highlight": "^2.1.11",
+    "minimist": "^1.2.8"
   }
 }
