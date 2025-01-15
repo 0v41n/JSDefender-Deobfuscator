@@ -50,6 +50,7 @@ A powerful JavaScript deobfuscator designed to analyze and transform obfuscated 
   | `-r`	| Launch a REPL mode with preloaded code.
   | `-v`	| Enable verbose mode for detailed output during the deobfuscation process.
   | `-l`	| Display licensing information.
+  | `--no-colors` | Disable colorized output.
 
 * **Examples:**
 
