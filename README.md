@@ -20,7 +20,7 @@ A powerful JavaScript deobfuscator designed to analyze and transform obfuscated 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/jsdefender-deobfuscator.git
+    git clone https://github.com/0v41n/jsdefender-deobfuscator.git
     cd jsdefender-deobfuscator
     ```
 
